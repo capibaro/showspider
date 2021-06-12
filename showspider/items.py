@@ -9,4 +9,11 @@ import scrapy
 class ShowspiderItem(scrapy.Item):
     # define the fields for your item here like:
     # name = scrapy.Field()
-    pass
+    id = scrapy.Field()
+    title = scrapy.Field()
+    url = scrapy.Field()
+    date = scrapy.Field()
+    time = scrapy.Field()
+    venue = scrapy.Field()
+    artist = scrapy.Field()
+    source = scrapy.Field()
