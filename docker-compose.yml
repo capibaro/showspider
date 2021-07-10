@@ -1,18 +1,12 @@
 version: '3.3'
 
-services:  
-  render:
-    image: scrapinghub/splash
-    container_name: splash
-    networks: 
-      - db_network
-    ports:
-      - 8050:8050
-    
+services:
   spider:
     build: .
     container_name: scrapy
-    command: scrapy crawl showstart
+    command: bash -c "
+      scrapy crawl showstart
+      && scrapy crawl gewara"
     volumes: 
       - ./:/code/
     networks: 
@@ -20,11 +14,6 @@ services:
     environment: 
       - MYSQL_USER=${MYSQL_USER}
       - MYSQL_PASSWORD=${MYSQL_PASSWORD}
-    depends_on: 
-      - render
-
-volumes:
-  data:
 
 networks: 
   db_network:
