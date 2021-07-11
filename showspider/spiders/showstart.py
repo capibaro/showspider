@@ -5,38 +5,20 @@ from showspider.items import ShowspiderItem
 class ShowstartSpider(scrapy.Spider):
     name = 'showstart'
 
-    venue_url = 'https://www.showstart.com/venue/list'
-
-    city_urls = [
-        "https://www.showstart.com/event/list?showStyle=1&cityCode=",
-        "https://www.showstart.com/event/list?showStyle=2&cityCode=",
-        "https://www.showstart.com/event/list?showStyle=3&cityCode=",
-        "https://www.showstart.com/event/list?showStyle=4&cityCode=",
-        "https://www.showstart.com/event/list?showStyle=6&cityCode=",
-        "https://www.showstart.com/event/list?showStyle=10&cityCode=",
-        "https://www.showstart.com/event/list?showStyle=11&cityCode=",
-        "https://www.showstart.com/event/list?showStyle=12&cityCode=",
-        "https://www.showstart.com/event/list?showStyle=23&cityCode=",
-        "https://www.showstart.com/event/list?showStyle=24&cityCode=",
-        "https://www.showstart.com/event/list?showStyle=25&cityCode=",
-        "https://www.showstart.com/event/list?showStyle=26&cityCode=",
-    ]
+    url = "https://www.showstart.com/event/list?cityCode=%s&showStyle=%s"
 
     domain_name = "https://www.showstart.com"
+
+    style_list = [1, 2, 3, 4, 6, 10, 11, 12, 23, 24, 25, 26]
+
+    city_list = [10, 20, 21, 22, 23, 24, 28, 29, 371, 510, 512, 551, 571, 574, 591, 592, 731, 755]
     
     def start_requests(self):
-        yield scrapy.Request(self.venue_url, self.parse_city)
+        for style in self.style_list:
+            for city in self.city_list:
+                url = self.url % (str(city), str(style))
+                yield scrapy.Request(url, self.parse_page)
 
-    def parse_city(self, response):
-        filter_content = response.css('#__layout > section > main > div > section.filter-wrap > div')
-        cities = filter_content.css('a::attr(href)')
-        for city in cities:
-            code_list = city.re(r'cityCode=(.+?)&t=')
-            if len(code_list) != 0:
-                city_code = code_list[0]
-                for city_url in self.city_urls:
-                    link = city_url + city_code
-                    yield scrapy.Request(link, self.parse_page)
 
     def parse_page(self, response):
         el_pager = response.css('#__layout > section > main > div > div.el-pagination.is-background > ul > li::text').getall()

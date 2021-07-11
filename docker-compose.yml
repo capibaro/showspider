@@ -6,7 +6,8 @@ services:
     container_name: scrapy
     command: bash -c "
       scrapy crawl showstart
-      && scrapy crawl gewara"
+      && scrapy crawl gewara
+      && scrapy crawl damai"
     volumes: 
       - ./:/code/
     networks: 

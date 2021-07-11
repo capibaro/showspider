@@ -9,11 +9,11 @@ class GewaraSpider(scrapy.Spider):
 
     url = 'https://m.dianping.com/myshow/ajax/performances/%s;st=0;p=%s;s=10;tft=0?cityId=%s&sellChannel=7'
     
-    domain_name = 'http://www.gewara.com/detail/'
+    detail_url = 'http://www.gewara.com/detail/'
 
-    category_list = [1,10]
+    category_list = [1, 10]
 
-    city_list = [1,10,20,30,40,42,44,45,50,51,52,55,56,57,59,62,66,70,73,80]
+    city_list = [1, 10, 20, 30, 40, 42, 44, 45, 50, 51, 52, 55, 56, 57, 59, 62, 66, 70, 73, 80]
 
     def start_requests(self):
         for category in self.category_list:
@@ -33,9 +33,9 @@ class GewaraSpider(scrapy.Spider):
         data = result.get('data')
         for show in data:
             id = show.get('performanceId')
-            url = self.domain_name + str(id)
+            url = self.detail_url + str(id)
             title = show.get('name')
-            artist = '待定'
+            artist = ''
             date = show.get('showTimeRange')
             if date.find('-') != -1 or date.find('/') != -1 or len(date) != 18:
                 time = date.split(' ')[0]
