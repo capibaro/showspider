@@ -1,6 +1,6 @@
 # ShowSpider
 
-ShowSpider是一个收集主流票务网站（如[秀动网](https://www.showstart.com/)、[大麦网](https://www.damai.cn/)、[格瓦拉](http://www.gewara.com)）演出信息的爬虫。
+ShowSpider 是一个收集主流票务网站（[秀动](https://www.showstart.com/)、[大麦](https://www.damai.cn/)、[猫眼](http://www.gewara.com)）上 LiveHouse 和音乐节演出信息的爬虫。
 
 ## Requirement
 
