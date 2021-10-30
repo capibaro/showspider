@@ -16,4 +16,5 @@ class ShowspiderItem(scrapy.Item):
     time = scrapy.Field()
     venue = scrapy.Field()
     artist = scrapy.Field()
+    post = scrapy.Field()
     source = scrapy.Field()

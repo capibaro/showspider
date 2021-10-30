@@ -54,6 +54,7 @@ class DamaiSpider(scrapy.Spider):
                 venue = show.get('venue')
                 venue = venuecity + ' ' + venue
                 artist = show.get('actors')[3:]
+                post = show.get('verticalPic')
                 item = ShowspiderItem()
                 item['id'] = id
                 item['url'] = url
@@ -62,5 +63,6 @@ class DamaiSpider(scrapy.Spider):
                 item['time'] = time
                 item['venue'] = venue
                 item['artist'] = artist
+                item['post'] = post
                 item['source'] = self.name
                 yield item

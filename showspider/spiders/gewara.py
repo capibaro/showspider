@@ -44,6 +44,7 @@ class GewaraSpider(scrapy.Spider):
                 time = date[:-3]
                 time = datetime.datetime.strptime(time, '%Y.%m.%d %H:%M')
             venue = show.get('cityName') + ' ' + show.get('shopName')
+            post = show.get('posterUrl')
             item = ShowspiderItem()
             item['id'] = id
             item['url'] = url
@@ -52,5 +53,6 @@ class GewaraSpider(scrapy.Spider):
             item['date'] = date
             item['time'] = time
             item['venue'] = venue
+            item['post'] = post
             item['source'] = self.name
             yield item

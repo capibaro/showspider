@@ -30,14 +30,14 @@ class ShowspiderPipeline:
                     result = cursor.fetchone()
                     if result is not None:
                         sql = """update search_show set title=%s,url=%s,date=%s,
-                            time=%s,venue=%s,artist=%s,source=%s where id=%s"""
+                            time=%s,venue=%s,artist=%s,post=%s,source=%s where id=%s"""
                         cursor.execute(sql, (item['title'], item['url'], item['date'], 
-                            item['time'], item['venue'], item['artist'], item['source'], item['id']))
+                            item['time'], item['venue'], item['artist'], item['post'], item['source'], item['id']))
                     else:
-                        sql = """insert into search_show(id,title,url,date,time,venue,artist,source)
-                            value (%s,%s,%s,%s,%s,%s,%s,%s)"""
+                        sql = """insert into search_show(id,title,url,date,time,venue,artist,post,source)
+                            value (%s,%s,%s,%s,%s,%s,%s,%s,%s)"""
                         cursor.execute(sql, (item['id'], item['title'], item['url'], 
-                            item['date'], item['time'], item['venue'], item['artist'], item['source']))
+                            item['date'], item['time'], item['venue'], item['artist'], item['post'], item['source']))
                     conn.commit()
                 except Exception as e:
                     logging.error(e)

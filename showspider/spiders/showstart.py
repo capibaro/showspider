@@ -41,6 +41,7 @@ class ShowstartSpider(scrapy.Spider):
         artists = list_box.css('div.artist::text').getall()
         dates = list_box.css('div.time::text').getall()
         venues = list_box.css('div.addr::text').getall()
+        posts = response.css('script::text').re('poster:"(.+?)"')
 
         for i in range(0, len(urls)):
             url = self.domain_name + urls[i]
@@ -51,6 +52,7 @@ class ShowstartSpider(scrapy.Spider):
             time = date[0:20]
             time = datetime.datetime.strptime(time, '%Y/%m/%d %H:%M')
             venue = venues[i]
+            post = posts[i].encode('utf-8').decode("unicode_escape")
             item = ShowspiderItem()
             item['id'] = id
             item['url'] = url
@@ -59,5 +61,6 @@ class ShowstartSpider(scrapy.Spider):
             item['date'] = date
             item['time'] = time
             item['venue'] = venue
+            item['post'] = post
             item['source'] = self.name
             yield item
